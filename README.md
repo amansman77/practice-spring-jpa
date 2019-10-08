@@ -13,8 +13,6 @@ Springboot기반으로 JPA를 활용해봅니다.
 ## DB연동
 ### PostgreSQL
 
-__환경설정__
-
 [[Spring Boot #23] 스프링 부트 PostgreSQL 연동하기 - 새로비 지식 저장소](https://engkimbs.tistory.com/789)를 참고하여 진행했습니다.
 
 설치
@@ -46,6 +44,7 @@ select * from pg_tables where schemaname = 'public';
 패키지 `com.ho.practice.jpa.school`내에 구현
 
 DB ERD
+
 ![ERD](http://hohome.ipdisk.co.kr:80/dl/4241c994ff53164639e03b98009d2fb8/5d9c0e6a/657465726e616c3b61646d696e/9Qjk0Qh1hFfJWl54BnJ2H6Q729Mwnbz/ERD.png)
 
 ---
@@ -54,7 +53,7 @@ __예제__
 
 [[Spring Boot #24] 스프링 부트 Spring-Data-JPA 연동 - 새로비 지식 저장소](https://engkimbs.tistory.com/790)를 참고하여 진행했습니다.
 
-##문제 상황
+## 문제 상황
 
 __Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.__
 
