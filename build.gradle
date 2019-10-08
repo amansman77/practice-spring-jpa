@@ -8,6 +8,13 @@ group = 'com.ho.practice.jpa'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+configurations {
+	compileOnly {
+		// lombok 설정
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -18,4 +25,8 @@ dependencies {
 	
 	implementation 'org.postgresql:postgresql:42.2.8'
 	testImplementation 'com.h2database:h2:1.4.199'
+	
+	// lombok 설정
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
