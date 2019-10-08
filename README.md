@@ -36,7 +36,7 @@ psql testdb -U testuser
 ```
 
 Table 목록 조회
-```bash
+```sql
 select * from pg_tables where schemaname = 'public';
 ```
 
