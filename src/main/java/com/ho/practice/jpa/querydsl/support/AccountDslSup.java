@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class AccountDslSupport {
+public class AccountDslSup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +17,9 @@ public class AccountDslSupport {
     private String password;
     private String gender;
     
-    public AccountDslSupport() {
+    public AccountDslSup() {
     }
-    public AccountDslSupport(Long id, String username, String password, String gender) {
+    public AccountDslSup(Long id, String username, String password, String gender) {
     	this.id = id;
     	this.username = username;
     	this.password = password;
@@ -55,7 +55,7 @@ public class AccountDslSupport {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccountDslSupport account = (AccountDslSupport) o;
+        AccountDslSup account = (AccountDslSup) o;
         return Objects.equals(id, account.id) &&
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password);

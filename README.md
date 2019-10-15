@@ -1,7 +1,9 @@
 # Spring REST Docs 활용
 
+
 ## 목표
 Springboot기반으로 JPA를 활용해봅니다.
+
 
 ## 개발 프레임워크
  - IDE : STS-4.2.2.RELEASE
@@ -9,6 +11,7 @@ Springboot기반으로 JPA를 활용해봅니다.
  - Spring Boot : 2.1.8
  - Gradle : 5.6.2
  - JPA : 2.1.10
+
 
 ## DB연동
 ### PostgreSQL
@@ -40,8 +43,13 @@ Table 목록 조회
 select * from pg_tables where schemaname = 'public';
 ```
 
+
 ## 기본 예제
+
+[[Spring Boot #24] 스프링 부트 Spring-Data-JPA 연동 - 새로비 지식 저장소](https://engkimbs.tistory.com/790)를 참고하여 진행했습니다.
+
 패키지 `com.ho.practice.jpa.basic`내에 구현
+
 
 ## 복합키 예제
 학교 도메인으로 설정
@@ -52,11 +60,13 @@ DB ERD
 
 ![ERD](http://hohome.ipdisk.co.kr:80/dl/4241c994ff53164639e03b98009d2fb8/5d9c0e6a/657465726e616c3b61646d696e/9Qjk0Qh1hFfJWl54BnJ2H6Q729Mwnbz/ERD.png)
 
+
 ## 페이징 예제
 패키지 `com.ho.practice.jpa.page`내에 구현
 
+
 ## 다이나믹 쿼리 예제
-[[JPA] Spring Data JPA와 QueryDSL 이해, 실무 경험 공유 - 개발자의 기록습관](https://ict-nroo.tistory.com/117)과 [기억보단 기록을 - jojoldu](https://jojoldu.tistory.com/372)의 글을 참고하여 QueryDSL을 활용했습니다.
+[[JPA] Spring Data JPA와 QueryDSL 이해, 실무 경험 공유 - 개발자의 기록습관](https://ict-nroo.tistory.com/117)과 [Spring Boot Data Jpa 프로젝트에 Querydsl 적용하기 - 기억보단 기록을](https://jojoldu.tistory.com/372)의 글을 참고하여 QueryDSL을 활용했습니다.
 
 ### QueryDSL 적용
 
@@ -88,13 +98,47 @@ DB ERD
 ### git ignore 추가
 src/main/generated
 
+### Dynamic 쿼리 활용
+[[Querydsl] 다이나믹 쿼리 사용하기 - 기억보단 기록을](https://jojoldu.tistory.com/394)를 참고하여 진행했습니다.
+
+AccountDslCusRepositoryCustom에 인터페이스 정의
+
+AccountDslCusImpl에 인터페이스 구현
+
+**이슈**
+
+Caused by: 
+    java.lang.IllegalArgumentException: 
+        Failed to create query for method public abstract java.util.List com.ho.practice.jpa.querydsl.impl.AccountDslCusRepositoryCustom.findDynamicQuery(java.lang.String,java.lang.String)! 
+        No property findDynamicQuery found for type AccountDslCus!
+        
+**해결**
+
+Repository의 클래스명을 잘 짓자..
+~Repository
+~RepositoryCustom
+~RepositoryImpl
+
 참고 : 캐시 지우기 git rm -r --cached [폴더명]
 
----
+**이슈**
 
-__예제__
+AccountDslCusRepositoryImpl에 
 
-[[Spring Boot #24] 스프링 부트 Spring-Data-JPA 연동 - 새로비 지식 저장소](https://engkimbs.tistory.com/790)를 참고하여 진행했습니다.
+private final JPAQueryFactory queryFactory 를 선언하면
+
+빌드 후 테스트시 다른 Repository 테스트 클래스에서 repository를 찾을 수 없다는 오류 발생
+
+Caused by: 
+    org.springframework.beans.factory.NoSuchBeanDefinitionException: 
+        No qualifying bean of type 'com.querydsl.jpa.impl.JPAQueryFactory' available: 
+            expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+
+**해결**
+
+각 Repository 테스트 클래스에 @EnableJpaRepositories 선언
+
+EX) @EnableJpaRepositories("com.ho.practice.jpa.compositeid")
 
 ## 문제 상황
 

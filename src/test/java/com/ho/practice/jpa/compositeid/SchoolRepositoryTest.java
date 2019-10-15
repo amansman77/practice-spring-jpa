@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,6 +21,7 @@ import com.ho.practice.jpa.compositeid.StudentRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@EnableJpaRepositories("com.ho.practice.jpa.compositeid")
 public class SchoolRepositoryTest {
 	
 	@Autowired
