@@ -169,7 +169,7 @@ Caused by:
 
 **원인**
 
-테스트시 QClass들의 경로가 연결되지 않음
+테스트시 `QClass`들의 경로가 연결되지 않음
 
 **해결**
 
@@ -179,8 +179,9 @@ STS의 Source 경로의 output 경로를 java 경로와 동일하게 설정
 
 ### 페이징 적용
 
-AccountDslCusRepositoryImpl에 페이징 예제 추가 
-
+`AccountDslCusRepositoryImpl`에 페이징 예제 추가 
+- List로 반환하는 예제 `findDynamicQueryAdvancePage`
+- Page로 반환하는 예제 `findDynamicQueryAdvancePageable`
 
 
 ## 문제 상황

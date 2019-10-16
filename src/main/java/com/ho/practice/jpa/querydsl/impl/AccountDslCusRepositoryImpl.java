@@ -4,10 +4,13 @@ import static com.ho.practice.jpa.querydsl.impl.QAccountDslCus.accountDslCus;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -73,7 +76,7 @@ public class AccountDslCusRepositoryImpl implements AccountDslCusRepositoryCusto
     }
 
     @Override
-	public List<AccountDslCus> findDynamicQueryAdvance(String username, String gender, Pageable pageable) {
+	public List<AccountDslCus> findDynamicQueryAdvancePage(String username, String gender, Pageable pageable) {
     	return queryFactory
                 .selectFrom(accountDslCus)
                 .where(eqUserName(username),
@@ -81,6 +84,19 @@ public class AccountDslCusRepositoryImpl implements AccountDslCusRepositoryCusto
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+	}
+
+	@Override
+	public Page<AccountDslCus> findDynamicQueryAdvancePageable(String username, String gender, Pageable pageable) {
+		QueryResults<AccountDslCus	> result = queryFactory
+                .selectFrom(accountDslCus)
+                .where(eqUserName(username),
+                        eqGender(gender))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+		
+		return new PageImpl<>(result.getResults(), pageable, result.getTotal());
 	}
 
 	private BooleanExpression eqUserName(String username) {
