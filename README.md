@@ -78,8 +78,11 @@ DB ERD
 - task 추가
 - source set 설정
 
-2.QClass 생성
+2.QClass 생성 및 STS 연결
 - Gradle Tasks -> build -> build
+- STS 설정
+    - build path에 /src/main/generated 폴더 연결
+    - Output folder에 /bin/main으로 설정
 
 3.Java코드 구현
 - Entity
