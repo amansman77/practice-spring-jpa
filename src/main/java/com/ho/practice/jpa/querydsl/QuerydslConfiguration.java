@@ -1,4 +1,4 @@
-package com.ho.practice.jpa.querydsl.support;
+package com.ho.practice.jpa.querydsl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

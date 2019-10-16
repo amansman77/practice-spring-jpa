@@ -97,8 +97,9 @@ DB ERD
 
 패키지 `com.ho.practice.jpa.querydsl.impl`내에 구현
 
-- AccountDslCustomRepositoryCustom 인터페이스 생성
-- AccountDslCustromImpl 클래스 생성
+- `AccountDslCustomRepositoryCustom` 인터페이스 생성
+- `AccountDslCustromImpl` 클래스 생성
+- `QuerydslConfiguration` 은 동일하게 적용
 
 ### git ignore 추가
 src/main/generated
@@ -135,31 +136,36 @@ Repository의 클래스명을 잘 짓자..
 
 **이슈**
 
-AccountDslCusRepositoryImpl에 
+`AccountDslCusRepositoryImpl`에 
 
-private final JPAQueryFactory queryFactory 를 선언하면
+`private final JPAQueryFactory queryFactory` 를 선언하면
 
 테스트시 다른 Repository 테스트 클래스에서 repository를 찾을 수 없다는 오류 발생
 
+```
 Caused by: 
     org.springframework.beans.factory.NoSuchBeanDefinitionException: 
         No qualifying bean of type 'com.querydsl.jpa.impl.JPAQueryFactory' available: 
             expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+```
 
 **해결**
 
-각 Repository 테스트 클래스에 @EnableJpaRepositories 선언
+각 Repository 테스트 클래스에 `@EnableJpaRepositories` 선언
 
-EX) @EnableJpaRepositories("com.ho.practice.jpa.compositeid")
+EX)
+`@EnableJpaRepositories("com.ho.practice.jpa.compositeid")`
 
 
 **이슈**
 
-QueryDSL을 custom하여 활용한 repository를 unit 테스트할 때 NoClassDefFoundError 발생
+QueryDSL을 custom하여 활용한 repository를 unit 테스트할 때 `NoClassDefFoundError` 발생
 
+```
 Caused by: 
     java.lang.ClassNotFoundException: 
         com.ho.practice.jpa.querydsl.impl.QAccountDslCus
+```
 
 **원인**
 
