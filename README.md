@@ -105,6 +105,8 @@ AccountDslCusRepositoryCustom에 인터페이스 정의
 
 AccountDslCusImpl에 인터페이스 구현
 
+---
+
 **이슈**
 
 Caused by: 
@@ -112,11 +114,16 @@ Caused by:
         Failed to create query for method public abstract java.util.List com.ho.practice.jpa.querydsl.impl.AccountDslCusRepositoryCustom.findDynamicQuery(java.lang.String,java.lang.String)! 
         No property findDynamicQuery found for type AccountDslCus!
         
+**원인**
+
+[Custom Implementations for Spring Data Repositories - Spring docs](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.custom-implementations)에 의하면
+
+`the class name that corresponds to the fragment interface is the Impl postfix`
+
 **해결**
 
 Repository의 클래스명을 잘 짓자..
 ~Repository
-~RepositoryCustom
 ~RepositoryImpl
 
 참고 : 캐시 지우기 git rm -r --cached [폴더명]
@@ -127,7 +134,7 @@ AccountDslCusRepositoryImpl에
 
 private final JPAQueryFactory queryFactory 를 선언하면
 
-빌드 후 테스트시 다른 Repository 테스트 클래스에서 repository를 찾을 수 없다는 오류 발생
+테스트시 다른 Repository 테스트 클래스에서 repository를 찾을 수 없다는 오류 발생
 
 Caused by: 
     org.springframework.beans.factory.NoSuchBeanDefinitionException: 
@@ -139,6 +146,30 @@ Caused by:
 각 Repository 테스트 클래스에 @EnableJpaRepositories 선언
 
 EX) @EnableJpaRepositories("com.ho.practice.jpa.compositeid")
+
+
+**이슈**
+
+QueryDSL을 custom하여 활용한 repository를 unit 테스트할 때 NoClassDefFoundError 발생
+
+Caused by: 
+    java.lang.ClassNotFoundException: 
+        com.ho.practice.jpa.querydsl.impl.QAccountDslCus
+
+**원인**
+
+테스트시 QClass들의 경로가 연결되지 않음
+
+**해결**
+
+STS의 Source 경로의 output 경로를 java 경로와 동일하게 설정
+
+
+### 페이징 적용
+
+AccountDslCusRepositoryImpl에 페이징 예제 추가 
+
+---
 
 ## 문제 상황
 
