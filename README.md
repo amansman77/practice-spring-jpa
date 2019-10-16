@@ -115,11 +115,13 @@ AccountDslCusImpl에 인터페이스 구현
 
 **이슈**
 
+```
 Caused by: 
     java.lang.IllegalArgumentException: 
         Failed to create query for method public abstract java.util.List com.ho.practice.jpa.querydsl.impl.AccountDslCusRepositoryCustom.findDynamicQuery(java.lang.String,java.lang.String)! 
         No property findDynamicQuery found for type AccountDslCus!
-        
+```
+
 **원인**
 
 [Custom Implementations for Spring Data Repositories - Spring docs](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.custom-implementations)에 의하면
@@ -129,8 +131,8 @@ Caused by:
 **해결**
 
 Repository의 클래스명을 잘 짓자..
-~Repository
-~RepositoryImpl
+- ~Repository
+- ~RepositoryImpl
 
 참고 : 캐시 지우기 git rm -r --cached [폴더명]
 
