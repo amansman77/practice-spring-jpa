@@ -77,8 +77,10 @@ DB ERD
 - dependencies 추가
 - task 추가
 - source set 설정
+
 2.QClass 생성
 - Gradle Tasks -> build -> build
+
 3.Java코드 구현
 - Entity
 - Repository
