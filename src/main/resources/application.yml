@@ -13,3 +13,13 @@ spring:
         show_sql: true
     hibernate:
       ddl-auto: create
+  data:
+    mongodb:
+#      uri: mongodb://192.168.0.69:27017
+#      database: rawdata
+#      username: admin
+#      password: admin
+#      uri: mongodb://admin:admin@192.168.0.69:27017/rawdata
+       uri: mongodb://admin:admin@192.168.0.69:27017/rawdata?authSource=admin
+            
+#spring.data.mongodb.authentication-database: admin

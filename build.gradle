@@ -26,6 +26,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	implementation 'org.postgresql:postgresql:42.2.8'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	testImplementation 'com.h2database:h2:1.4.199'
 	
 	// lombok 설정

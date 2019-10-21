@@ -186,6 +186,64 @@ STS의 Source 경로의 output 경로를 java 경로와 동일하게 설정
 - Page로 반환하는 예제 `findDynamicQueryAdvancePageable`
 
 
+## MongoDB 연동
+### DB 설치 및 조회
+
+설치
+```bash
+docker run -p 27017:27017 --name mongo_test -d mongo
+```
+
+접속
+```bash
+docker exec -i -t mongo_test bash
+```
+
+MongoDB 접속
+```bash
+mongo
+```
+
+데이터베이스 조회
+```bash
+show databases;
+```
+
+### 예제
+
+패키지 `com.ho.practice.jpa.mongo`내에 구현
+
+Dependency 추가
+`implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'`
+
+`Entity`, `Repository` 추가 및 `@DataMongoTest`을 활용한 테스트 수행
+
+`Unauthorized` 오류 발생
+```
+Caused by: 
+	com.mongodb.MongoCommandException: 
+		Command failed with error 13 (Unauthorized): 
+			'command update requires authentication' on server 192.168.0.69:27017. 
+			The full response is { "ok" : 0.0, "errmsg" : "command update requires authentication", "code" : 13, "codeName" : "Unauthorized" }
+```
+
+`Property`의 `URI`에 모든 정보를 담는 방식으로 수정
+
+`Authentication failed` 오류 발생
+```
+Caused by: 
+	com.mongodb.MongoCommandException: 
+		Command failed with error 18 (AuthenticationFailed): '
+			Authentication failed.' on server 192.168.0.69:27017. 
+			The full response is { "ok" : 0.0, "errmsg" : "Authentication failed.", "code" : 18, "codeName" : "AuthenticationFailed" }
+```
+
+`URI`에 `authSource`파라메터 추가
+
+URI에 대한 정보만 인식하나?????????????
+
+
+
 ## 문제 상황
 
 __Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.__
