@@ -1,5 +1,7 @@
 package com.ho.practice.jpa.mongo;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Builder;
@@ -12,9 +14,12 @@ import lombok.NonNull;
 public class AccountMongo {
 
 	@NonNull
-	private String id;
+	private String accountId;
 	
 	@NonNull
 	private String value;
+	
+	@NonNull
+	private LocalDateTime registDate;
 	
 }

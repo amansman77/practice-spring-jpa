@@ -20,6 +20,6 @@ spring:
 #      username: admin
 #      password: admin
 #      uri: mongodb://admin:admin@192.168.0.69:27017/rawdata
+#      authentication-database: admin
        uri: mongodb://admin:admin@192.168.0.69:27017/rawdata?authSource=admin
             
-#spring.data.mongodb.authentication-database: admin

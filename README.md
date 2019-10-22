@@ -240,8 +240,11 @@ Caused by:
 
 `URI`에 `authSource`파라메터 추가
 
+*해결~!*
+
 URI에 대한 정보만 인식하나?????????????
 
+`AccountMongoRepository`에 Between 예제 추가
 
 
 ## 문제 상황
