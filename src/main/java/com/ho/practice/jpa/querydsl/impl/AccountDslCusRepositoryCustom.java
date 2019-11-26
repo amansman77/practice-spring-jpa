@@ -11,7 +11,7 @@ public interface AccountDslCusRepositoryCustom {
 
 	List<AccountDslCus> findDynamicQuery(String username, String gender);
 	
-	List<AccountDslCus> findDynamicQueryPage(String username, String gender, Pageable pageable);
+	List<AccountDslCus> findDynamicQueryPage(AccountDslCus param, Pageable pageable);
 	
 	List<AccountDslCus> findDynamicQueryAdvance(String username, String gender);
 	

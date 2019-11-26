@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -111,20 +112,23 @@ public class AccountDslCusRepositoryTest {
 						  , new AccountDslCus(9L, "user9", "userpass9", "w")
 						  , new AccountDslCus(10L, "user10", "userpass10", "w")
 				                );
-		Pageable pageable1 = PageRequest.of(1, 2);
+		Pageable pageable1 = PageRequest.of(0, 2, new Sort(Sort.Direction.DESC, "username"));
 		Pageable pageable2 = PageRequest.of(2, 2);
 		
 		accountDslCusRepository.saveAll(list);
 		
 		//when
-		List<AccountDslCus> list1 = accountDslCusRepository.findDynamicQueryPage(null, "w", pageable1);
-		List<AccountDslCus> list2 = accountDslCusRepository.findDynamicQueryPage(null, "w", pageable2);
-		List<AccountDslCus> list4 = accountDslCusRepository.findDynamicQueryPage(null, null, pageable1);
+		List<AccountDslCus> list1 = accountDslCusRepository.findDynamicQueryPage(
+				AccountDslCus.builder().gender("w").build(), pageable1);
+		List<AccountDslCus> list2 = accountDslCusRepository.findDynamicQueryPage(
+				AccountDslCus.builder().gender("w").build(), pageable2);
+		List<AccountDslCus> list4 = accountDslCusRepository.findDynamicQueryPage(
+				AccountDslCus.builder().build(), pageable1);
 		
 		//then
 		assertThat(list1).isNotNull();
 		assertThat(list1.size()).isEqualTo(2);
-		assertThat(list1.get(0).getUsername()).isEqualTo("user8");
+		assertThat(list1.get(0).getUsername()).isEqualTo("user9");
 		assertThat(list1.get(0).getGender()).isEqualTo("w");
 		
 		assertThat(list2).isNotNull();
@@ -134,8 +138,8 @@ public class AccountDslCusRepositoryTest {
 		
 		assertThat(list4).isNotNull();
 		assertThat(list4.size()).isEqualTo(2);
-		assertThat(list4.get(0).getUsername()).isEqualTo("user3");
-		assertThat(list4.get(0).getGender()).isEqualTo("m");
+		assertThat(list4.get(0).getUsername()).isEqualTo("user9");
+		assertThat(list4.get(0).getGender()).isEqualTo("w");
 		
 	}
 	

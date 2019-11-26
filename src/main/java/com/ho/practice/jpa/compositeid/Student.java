@@ -14,7 +14,7 @@ import lombok.ToString;
 
 /**
  * 학생 entity
- * @author MICUBE
+ * @author hhsung
  *
  */
 @Getter

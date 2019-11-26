@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 수강하는 수업 ID
- * @author MICUBE
+ * @author hhsung
  *
  */
 public class RegisterCourseId implements Serializable {

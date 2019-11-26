@@ -6,7 +6,7 @@ import javax.persistence.IdClass;
 
 /**
  * 수강하는 수업 entity
- * @author MICUBE
+ * @author hhsung
  *
  */
 @Entity

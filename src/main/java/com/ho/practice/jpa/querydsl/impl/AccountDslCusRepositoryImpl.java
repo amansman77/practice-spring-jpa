@@ -11,7 +11,12 @@ import org.springframework.util.StringUtils;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -47,23 +52,66 @@ public class AccountDslCusRepositoryImpl implements AccountDslCusRepositoryCusto
     }
     
     @Override
-    public List<AccountDslCus> findDynamicQueryPage(String username, String gender, Pageable pageable) {
+    public List<AccountDslCus> findDynamicQueryPage(AccountDslCus param, Pageable pageable) {
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        if (!StringUtils.isEmpty(username)) {
-            builder.and(accountDslCus.username.eq(username));
+        if (!StringUtils.isEmpty(param.getUsername())) {
+            builder.and(accountDslCus.username.eq(param.getUsername()));
         }
-        if (!StringUtils.isEmpty(gender)) {
-            builder.and(accountDslCus.gender.eq(gender));
+        if (!StringUtils.isEmpty(param.getGender())) {
+            builder.and(accountDslCus.gender.eq(param.getGender()));
         }
 
-        return queryFactory
+        /*
+         * orderby 추가 전 로직
+         */
+//        return queryFactory
+//                .selectFrom(accountDslCus)
+//                .where(builder)
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .fetch();
+        
+        
+        
+        JPAQuery<AccountDslCus> query = queryFactory
                 .selectFrom(accountDslCus)
                 .where(builder)
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .limit(pageable.getPageSize());
+                
+//        query.orderBy(accountDslCus.username.desc());
+        
+//        OrderSpecifier<String> orderSpecifier = accountDslCus.username.desc();
+//        query.orderBy(orderSpecifier);
+      
+//	      OrderSpecifier<String> orderSpecifier = new OrderSpecifier<String>(Order.DESC, accountDslCus.username);
+//	      query.orderBy(orderSpecifier);
+      
+//	      OrderSpecifier<String> orderSpecifier = new OrderSpecifier<String>(Order.DESC, Expressions.path(String.class, "username"));
+//	      query.orderBy(orderSpecifier);
+      
+//	      for (org.springframework.data.domain.Sort.Order o : pageable.getSort()) {
+//	      	OrderSpecifier<String> orderSpecifier = new OrderSpecifier<String>(
+//	      					o.isAscending()?Order.ASC:Order.DESC
+//	      					, Expressions.path(String.class, "username"));
+//	      	query.orderBy(orderSpecifier);
+//	      }
+      
+	      for (org.springframework.data.domain.Sort.Order o : pageable.getSort()) {
+	      	Path<AccountDslCus> path = Expressions.path(AccountDslCus.class, "accountDslCus");
+	
+	      	@SuppressWarnings({ "rawtypes", "unchecked" })
+	      	OrderSpecifier orderSpecifier = new OrderSpecifier(
+	      			o.isAscending()?Order.ASC:Order.DESC
+	      			, Expressions.path(Object.class, path, o.getProperty()));
+	      	query.orderBy(orderSpecifier);
+	      }
+	      
+	      QueryResults<AccountDslCus> result = query.fetchResults();
+	      
+	      return result.getResults();
     }
     
     @Override
