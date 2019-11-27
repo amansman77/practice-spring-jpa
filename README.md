@@ -51,6 +51,37 @@ select * from pg_tables where schemaname = 'public';
 패키지 `com.ho.practice.jpa.basic`내에 구현
 
 
+
+## JpaAuditing을 활용하여 `@CreatedDate`, `@LastModifiedDate` 활용 예제
+
+패키지 `com.ho.practice.jpa.basic`내에 구현
+
+---
+
+**이슈**
+
+```
+Repository에 수정 후  `accountRepository.save(newAccount);` 수정시간을 조회하면 `modifyAccount.getModifyTime()` NULL이 반환 됨 
+```
+
+**원인**
+
+영속성 컨텍스트의 변경 내용이 DB에 반영되지 않았다.
+
+**해결**
+
+`accountRepository.flush();`
+
+[플러시(Flush)의 개념과 동작 과정](https://gmlwjd9405.github.io/2019/08/07/what-is-flush.html) 참고
+
+Flush는 영속성 컨텍스트의 변경 내용을 DB 에 반영하는 것을 말한다.
+Transaction commit 이 일어날 때 flush가 동작하는데, 이때 쓰기 지연 저장소에 쌓아 놨던 INSERT, UPDATE, DELETE SQL들이 DB에 날라간다.
+이때, 영속성 컨텍스트를 비우지는 않는다.
+
+---
+
+
+
 ## 복합키 예제
 학교 도메인으로 설정
 
