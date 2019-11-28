@@ -3,6 +3,7 @@ package com.ho.practice.jpa.basic;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,83 +58,111 @@ public class AccountRepositoryTest {
 	
 	@Test
 	public void 계정수정_시간확인_수정시간Null() {
-		//given
+		/*
+		 * Case 1
+		 * 데이터 추가
+		 */
 		Account newAccount = Account.builder().username("홍길동").build();
-		
-		//when
 		accountRepository.save(newAccount);
 		
-		Account modifyAccount = accountRepository.save(
-				Account.builder()
-					.accountId(newAccount.getAccountId())
-					.username("홍길동2")
-					.build()
-		);
+		assertThat(newAccount).isNotNull();
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동");
+		assertThat(newAccount.getCreateTime()).isNotNull();
+		assertThat(newAccount.getModifyTime()).isNotNull();
 		
-		Account findModifyAccount = accountRepository.findById(modifyAccount.getAccountId()).get();
+		LocalDateTime beforeCreateTime = newAccount.getCreateTime();
+//		LocalDateTime beforeModifyTime = newAccount.getModifyTime();
 		
-		//then
-		assertThat(modifyAccount).isNotNull();
-		assertThat(modifyAccount.getUsername()).isEqualTo("홍길동2");
-		assertThat(modifyAccount.getCreateTime()).isEqualTo(newAccount.getCreateTime());
-		assertThat(modifyAccount.getModifyTime()).isNull();
+		/*
+		 * Case 2
+		 * 데이터 수정
+		 */
+		newAccount.setUsername("홍길동2");
+		
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동2");
+		assertThat(newAccount.getCreateTime()).isEqualTo(beforeCreateTime);
+//		assertThat(newAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
+		
+		/*
+		 * Case 3
+		 * 수정한 데이터 조회
+		 */
+		Account findModifyAccount = accountRepository.findById(newAccount.getAccountId()).get();
 		
 		assertThat(findModifyAccount).isNotNull();
-		assertThat(findModifyAccount.getUsername()).isEqualTo("홍길동2");
-		assertThat(findModifyAccount.getCreateTime()).isEqualTo(newAccount.getCreateTime());
-		assertThat(findModifyAccount.getModifyTime()).isNull();
+		assertThat(findModifyAccount.getUsername()).isEqualTo(newAccount.getUsername());
+		assertThat(findModifyAccount.getCreateTime()).isEqualTo(beforeCreateTime);
+//		assertThat(findModifyAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
 	}
 	
 	@Test
 	public void 계정수정_조회해서_시간확인() {
-		//given
+		/*
+		 * Case 1
+		 * 데이터 추가
+		 */
 		Account newAccount = Account.builder().username("홍길동").build();
-		
-		//when
 		accountRepository.save(newAccount);
 		
-		Account modifyAccount = accountRepository.save(
-				Account.builder()
-					.accountId(newAccount.getAccountId())
-					.username("홍길동2")
-					.build()
-		);
+		assertThat(newAccount).isNotNull();
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동");
+		assertThat(newAccount.getCreateTime()).isNotNull();
+		assertThat(newAccount.getModifyTime()).isNotNull();
 		
-		Account findModifyAccount = accountRepository.findByAccountId(modifyAccount.getAccountId()).get();
+		LocalDateTime beforeCreateTime = newAccount.getCreateTime();
+		LocalDateTime beforeModifyTime = newAccount.getModifyTime();
 		
-		//then
-		assertThat(modifyAccount).isNotNull();
-		assertThat(modifyAccount.getUsername()).isEqualTo("홍길동2");
-		assertThat(modifyAccount.getCreateTime()).isEqualTo(newAccount.getCreateTime());
-		assertThat(modifyAccount.getModifyTime()).isNotNull();
+		/*
+		 * Case 2
+		 * 데이터 수정
+		 */
+		newAccount.setUsername("홍길동2");
+		
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동2");
+		assertThat(newAccount.getCreateTime()).isEqualTo(beforeCreateTime);
+//		assertThat(newAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
+		
+		/*
+		 * Case 3
+		 * 수정한 데이터 조회
+		 */
+		Account findModifyAccount = accountRepository.findByAccountId(newAccount.getAccountId()).get();
 		
 		assertThat(findModifyAccount).isNotNull();
-		assertThat(findModifyAccount.getUsername()).isEqualTo("홍길동2");
-		assertThat(findModifyAccount.getCreateTime()).isEqualTo(newAccount.getCreateTime());
-		assertThat(findModifyAccount.getModifyTime()).isNotNull();
+		assertThat(findModifyAccount.getUsername()).isEqualTo(newAccount.getUsername());
+		assertThat(findModifyAccount.getCreateTime()).isEqualTo(beforeCreateTime);
+		assertThat(findModifyAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
+		
+		assertThat(newAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
 	}
 	
 	@Test
 	public void 계정수정_시간확인() {
-		//given
+		/*
+		 * Case 1
+		 * 데이터 추가
+		 */
 		Account newAccount = Account.builder().username("홍길동").build();
-		
-		//when
 		accountRepository.save(newAccount);
 		
-		Account modifyAccount = accountRepository.save(
-				Account.builder()
-					.accountId(newAccount.getAccountId())
-					.username("홍길동2")
-					.build()
-		);
+		assertThat(newAccount).isNotNull();
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동");
+		assertThat(newAccount.getCreateTime()).isNotNull();
+		assertThat(newAccount.getModifyTime()).isNotNull();
+		
+		LocalDateTime beforeCreateTime = newAccount.getCreateTime();
+		LocalDateTime beforeModifyTime = newAccount.getModifyTime();
+		
+		/*
+		 * Case 2
+		 * 데이터 수정
+		 */
+		newAccount.setUsername("홍길동2");
 		accountRepository.flush();
 		
-		//then
-		assertThat(modifyAccount).isNotNull();
-		assertThat(modifyAccount.getUsername()).isEqualTo("홍길동2");
-		assertThat(modifyAccount.getCreateTime()).isEqualTo(newAccount.getCreateTime());
-		assertThat(modifyAccount.getModifyTime()).isNotNull();
+		assertThat(newAccount.getUsername()).isEqualTo("홍길동2");
+		assertThat(newAccount.getCreateTime()).isEqualTo(beforeCreateTime);
+		assertThat(newAccount.getModifyTime()).isNotEqualTo(beforeModifyTime);
 	}
 	
 }

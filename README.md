@@ -76,7 +76,7 @@ Repository에 수정 후  `accountRepository.save(newAccount);` 수정시간을 
 
 Flush는 영속성 컨텍스트의 변경 내용을 DB 에 반영하는 것을 말한다.
 Transaction commit 이 일어날 때 flush가 동작하는데, 이때 쓰기 지연 저장소에 쌓아 놨던 INSERT, UPDATE, DELETE SQL들이 DB에 날라간다.
-이때, 영속성 컨텍스트를 비우지는 않는다.
+영속성 컨텍스트를 비우지는 않는다.
 
 ---
 
