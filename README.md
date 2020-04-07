@@ -44,6 +44,10 @@ select * from pg_tables where schemaname = 'public';
 ```
 
 
+## EntityManager활용하기
+
+패키지 `com.ho.practice.jpa.hibernate`내에 구현
+
 ## 기본 예제
 
 [[Spring Boot #24] 스프링 부트 Spring-Data-JPA 연동 - 새로비 지식 저장소](https://engkimbs.tistory.com/790)를 참고하여 진행했습니다.

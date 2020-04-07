@@ -3,10 +3,9 @@ package com.ho.practice.jpa.mongo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.Query;
 
-public interface AccountMongoRepository extends MongoRepository<AccountMongo, String> {
+public interface AccountMongoRepository /* extends MongoRepository<AccountMongo, String> */ {
 
 	void deleteByAccountId(String accountId);
 

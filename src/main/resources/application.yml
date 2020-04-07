@@ -1,24 +1,24 @@
-spring:
-  datasource:
-    hikari:
-      maximum-pool-size: 4
-    url: jdbc:postgresql://localhost:5432/testdb
-    username: testuser
-    password: testpass
-  jpa:
-    properties:
-      hibernate:
-        temp:
-          use_jdbc_metadata_defaults: false
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-    hibernate:
-      ddl-auto: create
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017
-      database: test
+#spring:
+#  datasource:
+#    hikari:
+#      maximum-pool-size: 4
+#    url: jdbc:postgresql://localhost:5432/testdb
+#    username: testuser
+#    password: testpass
+#  jpa:
+#    properties:
+#      hibernate:
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#        show_sql: true
+#        format_sql: true
+#        use_sql_comments: true
+#    hibernate:
+#      ddl-auto: create
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017
+#      database: test
 #      uri: mongodb://192.168.0.69:27017
 #      database: rawdata
 #      username: admin

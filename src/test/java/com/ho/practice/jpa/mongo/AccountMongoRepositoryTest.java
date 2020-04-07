@@ -54,14 +54,14 @@ public class AccountMongoRepositoryTest {
 				                );
 		
 		//when
-		accountMongoRepository.saveAll(list);
-		List<AccountMongo> resultList = accountMongoRepository.findAll();
+//		accountMongoRepository.saveAll(list);
+//		List<AccountMongo> resultList = accountMongoRepository.findAll();
 		
 		//then
-		assertThat(resultList).isNotNull();
-		assertThat(resultList.size()).isEqualTo(list.size());
-		assertThat(resultList.get(0).getAccountId()).isEqualTo(list.get(0).getAccountId());
-		assertThat(resultList.get(0).getValue()).isEqualTo(list.get(0).getValue());
+//		assertThat(resultList).isNotNull();
+//		assertThat(resultList.size()).isEqualTo(list.size());
+//		assertThat(resultList.get(0).getAccountId()).isEqualTo(list.get(0).getAccountId());
+//		assertThat(resultList.get(0).getValue()).isEqualTo(list.get(0).getValue());
 		
 	}
 	
@@ -92,7 +92,7 @@ public class AccountMongoRepositoryTest {
 				                );
 		
 		//when
-		accountMongoRepository.saveAll(list);
+//		accountMongoRepository.saveAll(list);
 		List<AccountMongo> resultList = accountMongoRepository.findByRegistDateBetween(
 				DateUtil.getLocalDateTime(startDate, DateUtil.PATTERN_DATE_TIME_YYYYMMDDHHMMSS)
 				, DateUtil.getLocalDateTime(endDate, DateUtil.PATTERN_DATE_TIME_YYYYMMDDHHMMSS));

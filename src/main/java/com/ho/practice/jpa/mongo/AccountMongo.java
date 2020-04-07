@@ -2,15 +2,13 @@ package com.ho.practice.jpa.mongo;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 @Builder
-@Document
+//@Document
 public class AccountMongo {
 
 	@NonNull
